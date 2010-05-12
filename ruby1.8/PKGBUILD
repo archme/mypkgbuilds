@@ -18,7 +18,7 @@ optdepends=('tk: for Ruby/TK')
 build() {
   cd "${srcdir}/ruby-${_pkgver}"
   patch -p1 < ${srcdir}/openssl-1.0.patch || return 1
-  ./configure --prefix=/opt/ruby1.8 --enable-shared --enable-pthread || return 1
+  ./configure --prefix=/opt/ruby1.8 --enable-shared || return 1
   make || return 1
   make DESTDIR="${pkgdir}" install || return 1
 
