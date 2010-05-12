@@ -1,0 +1,25 @@
+# Contributor: Jacek Roszkowski <j.roszk@gmail.com>
+pkgname=ruby1.8-augeas
+pkgver=0.3.0
+_realname="ruby-augeas"
+pkgrel=1
+pkgdesc="ruby bindings for augeas"
+arch=(any)
+url="http://augeas.net/download/ruby/"
+license=("MIT")
+depends=('ruby1.8' 'augeas')
+source=(http://augeas.net/download/ruby/$_realname-$pkgver.tgz)
+#noextract=($_realname-$pkgver.gem)
+
+build() {
+  export PATH=$PATH:/opt/ruby1.8/bin/
+  cd $srcdir
+  /opt/ruby1.8/lib/ruby/gems/1.8/bin/rake build
+  
+  install -d -m0644 lib/augeas.rb $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8
+  install -d -m0644 ext/augeas/_augeas.so $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8
+  #local _gemdir="$(ruby-1.8 -rubygems -e'puts Gem.default_dir')"
+  #gem-1.8 install --ignore-dependencies -i "$pkgdir$_gemdir" ${_realname}-$pkgver.gem
+}
+
+md5sums=('bdeeb2b99f962a453259748073495d3f')

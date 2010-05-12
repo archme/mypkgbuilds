@@ -1,0 +1,41 @@
+#!/bin/bash
+
+PMASTER_ARGS=
+[ -f /etc/conf.d/puppetmasterd ] && . /etc/conf.d/named
+
+. /etc/rc.conf
+. /etc/rc.d/functions
+
+PID=`pidof -o %PPID /usr/bin/puppetmasterd`
+case "$1" in
+  start)
+    stat_busy "Starting Puppetmaster"
+    [ -z "$PID" ] && /usr/bin/puppetmasterd ${PMASTER_ARGS}
+    if [ $? -gt 0 ]; then
+      stat_fail
+    else
+      PID=`pidof -o %PPID /usr/bin/puppetmasterd`
+      echo $PID > /var/run/puppetmasterd.pid
+      add_daemon puppetmasterd
+      stat_done
+    fi
+    ;;
+  stop)
+    stat_busy "Stopping Puppetmaster"
+    [ ! -z "$PID" ]  && kill $PID &> /dev/null
+    if [ $? -gt 0 ]; then
+      stat_fail
+    else
+      rm_daemon puppetmasterd
+      stat_done
+    fi
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "usage: $0 {start|stop|restart}"
+esac
+exit 0

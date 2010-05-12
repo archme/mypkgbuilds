@@ -1,0 +1,28 @@
+# Facter: Installer: Arch
+# Contributor: Chris Giles <Chris.G.27 (at) Gmail.com>
+
+pkgname=facter1.8
+_pkgname=facter
+pkgver=1.5.7
+pkgrel=1
+pkgdesc="A library for collecting facts about your system."
+arch=("any")
+url="http://reductivelabs.com/projects/${_pkgname}/"
+license=("GPL")
+depends=("ruby1.8")
+options=(!emptydirs)
+
+source=(http://reductivelabs.com/downloads/${_pkgname}/${_pkgname}-${pkgver}.tar.gz)
+sha1sums=('d904d1d02341d12df5ae8183f5552bd7fab18be6')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	# Variables
+	export DESTDIR=${pkgdir}
+
+	# Build
+	ruby-1.8 ./install.rb || return 1
+	#mkdir -p $pkgdir/usr/bin/ || return 1
+	#ln -s /opt/ruby1.8/bin/facter $pkgdir/usr/bin/facter || return 1
+}

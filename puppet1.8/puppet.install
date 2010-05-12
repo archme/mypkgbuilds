@@ -1,0 +1,45 @@
+# Puppet: Installer: Arch
+# Contributor: Xavion <Xavion (dot) 0 (at) Gmail (dot) com>
+# Contributor: Miah Johnson <Miah (at) chia-pet dot org>
+
+post_install() {
+	# Create the puppet user.
+	getent passwd puppet &>/dev/null
+	if [ $? -eq 2 ]; then
+		useradd -r -c 'puppet user' puppet -d '/var/lib/puppet/'
+	fi
+	# Configure directories
+	chown -R puppet:puppet /etc/puppet/ssl/
+}
+
+post_upgrade() {
+	post_install
+}
+
+pre_remove() {
+if [ -f /var/run/puppetmasterd.pid ]; then
+	PIDOF=$(pidof -xo %PPID puppetmasterd)
+	PIDFILE=$(cat /var/run/puppetmasterd.pid)
+	if [ $PIDOF -eq $PIDFILE ]; then
+		/etc/rc.d/puppetmaster stop
+	fi
+fi
+
+if [ -f /var/run/puppetd.pid ]; then
+	PIDOF=$(pidof -xo %PPID puppetd)
+	PIDFILE=$(cat /var/run/puppetd.pid)
+	if [ $PIDOF -eq $PIDFILE ]; then
+		/etc/rc.d/puppet stop
+	fi
+fi
+}
+
+post_remove() {
+	# Remove user and group
+	userdel puppet
+}
+
+op=$1
+shift
+
+$op "$@"
