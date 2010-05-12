@@ -8,6 +8,7 @@ arch=(any)
 url="http://augeas.net/download/ruby/"
 license=("MIT")
 depends=('ruby1.8' 'augeas')
+makedepends=('ruby1.8-rake')
 source=(http://augeas.net/download/ruby/$_realname-$pkgver.tgz)
 #noextract=($_realname-$pkgver.gem)
 
