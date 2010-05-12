@@ -14,13 +14,11 @@ source=(http://augeas.net/download/ruby/$_realname-$pkgver.tgz)
 
 build() {
   export PATH=$PATH:/opt/ruby1.8/bin/
-  cd $srcdir
+  cd $srcdir/${_realname}-${pkgver}
   /opt/ruby1.8/lib/ruby/gems/1.8/bin/rake build
-  
-  install -d -m0644 lib/augeas.rb $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8
-  install -d -m0644 ext/augeas/_augeas.so $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8
-  #local _gemdir="$(ruby-1.8 -rubygems -e'puts Gem.default_dir')"
-  #gem-1.8 install --ignore-dependencies -i "$pkgdir$_gemdir" ${_realname}-$pkgver.gem
+
+  install -Dm0644 lib/augeas.rb $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8/augeas.rb
+  install -Dm0644 ext/augeas/_augeas.so $pkgdir/opt/ruby1.8/lib/ruby/site_ruby/1.8/_augeas.so
 }
 
 md5sums=('bdeeb2b99f962a453259748073495d3f')
