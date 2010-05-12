@@ -5,7 +5,6 @@
 
 pkgname=puppet1.8
 _pkgname=puppet
-libname=facter1.8
 pkgver=0.25.4
 rubyver=1.8
 pkgrel=1
@@ -13,7 +12,7 @@ pkgdesc="A system for automating system administration tasks."
 arch=("any")
 url="http://reductivelabs.com/projects/${_pkgname}/"
 license=("GPL")
-depends=("ruby" "${libname}")
+depends=("ruby1.8" "facter1.8" "ruby1.8-augeas")
 optdepends=("libshadow-ruby: Enables password management for the 'useradd' provider")
 options=(emptydirs)
 install="${_pkgname}.install"

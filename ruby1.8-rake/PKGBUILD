@@ -18,4 +18,3 @@ build() {
 }
 
 md5sums=('d9eb83525310ad1a0e8a3eeddfe3c65f')
-
