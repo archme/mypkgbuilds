@@ -1,6 +1,4 @@
-# Facter: Installer: Arch
-# Contributor: Chris Giles <Chris.G.27 (at) Gmail.com>
-
+# Contributor: archme
 pkgname=facter1.8
 _pkgname=facter
 pkgver=1.5.7

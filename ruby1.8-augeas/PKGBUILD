@@ -1,4 +1,4 @@
-# Contributor: Jacek Roszkowski <j.roszk@gmail.com>
+# Contributor: archme
 pkgname=ruby1.8-augeas
 pkgver=0.3.0
 _realname="ruby-augeas"

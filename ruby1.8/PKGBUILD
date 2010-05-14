@@ -1,15 +1,15 @@
-# Contributor: v01d
+# Contributor: archme
 pkgname='ruby1.8'
-pkgver=1.8.7_p249
-_pkgver=1.8.7-p249
-pkgrel=2
+pkgver=1.8.6_p399
+_pkgver=1.8.6-p399
+pkgrel=1
 pkgdesc="An object-oriented language for quick and easy programming"
 arch=('i686' 'x86_64')
 license=('custom')
 url="http://www.ruby-lang.org/en/"
 depends=('gdbm>=1.8.3' 'db>=4.7.25' 'openssl>=0.9.8k' 'zlib>=1.2.3.3' 'readline>=5.2.013')
 makedepends=('tk>=8.5')
-provides=('ruby=1.8.7')
+provides=('ruby=1.8.6')
 source=(ftp://ftp.ruby-lang.org/pub/ruby/stable/ruby-${_pkgver}.tar.bz2 openssl-1.0.patch)
 options=('!emptydirs')
 depends=('gdbm>=1.8.3' 'db>=4.7.25' 'openssl>=0.9.8k' 'zlib>=1.2.3.3' 'readline>=5.2.013')
@@ -18,7 +18,7 @@ optdepends=('tk: for Ruby/TK')
 build() {
   cd "${srcdir}/ruby-${_pkgver}"
   patch -p1 < ${srcdir}/openssl-1.0.patch || return 1
-  ./configure --prefix=/opt/ruby1.8 --enable-shared || return 1
+  ./configure --prefix=/opt/ruby1.8 --enable-shared --enable-pthread || return 1
   make || return 1
   make DESTDIR="${pkgdir}" install || return 1
 
@@ -30,5 +30,5 @@ build() {
   done
 }
 
-md5sums=('37200cc956a16996bbfd25bb4068f242'
+md5sums=('f77c307cb72fb8808b0e85af5d05cefc'
          '4ba2533e9b85fa6db21b33fcd5fb5cde')

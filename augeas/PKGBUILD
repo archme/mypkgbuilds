@@ -1,5 +1,4 @@
-# Contributor: Jon Nordby <jononor@gmail.com>
-
+# Contributor: archme
 pkgname=augeas
 pkgver=0.7.1
 pkgrel=1

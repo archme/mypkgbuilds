@@ -1,8 +1,4 @@
-# Puppet: Installer: Arch
-# Maintainer: Xavion <Xavion (dot) 0 (at) Gmail (dot) com>
-# Contributor: Xavion <Xavion (dot) 0 (at) Gmail (dot) com>
-# Contributor: Miah Johnson <miah (at) chia-pet dot org>
-
+# Contributor: archme
 pkgname=puppet1.8
 _pkgname=puppet
 pkgver=0.25.4
