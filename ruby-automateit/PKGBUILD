@@ -1,0 +1,29 @@
+# Contributor: Archme <archme.mail AT gmail DOT com>
+pkgname=ruby-automateit
+pkgver=0.91104
+pkgrel=2
+pkgdesc="Tool for automating the setup and maintenance of servers, applications and their dependencies."
+arch=(any)
+url="http://automateit.org/"
+license=('GPL')
+depends=(ruby)
+makedepends=(rubygems)
+source=("http://automateit.org/pub/gems/automateit-$pkgver.gem" \
+	"archlinux-packages.diff")
+noextract=(automateit-$pkgver.gem)
+md5sums=('474eeefcb7247271af6f680680fb936a' \
+	 'b107d6066be3b58e42cbf28a87945fbd')
+
+build() {
+  cd $srcdir
+  local _gemdir="$(ruby -rubygems -e'puts Gem.default_dir')"
+
+  gem install --ignore-dependencies -i "$pkgdir$_gemdir" automateit-$pkgver.gem
+
+  cd $pkgdir/usr/lib/ruby/gems/1.9.1/gems/automateit-0.91104
+  patch -Np0 -i $srcdir/archlinux-packages.diff || return 1
+
+  install -d $pkgdir/usr/bin || return 1
+  mv $pkgdir$_gemdir/bin/* $pkgdir/usr/bin/ || return 1
+  rmdir $pkgdir$_gemdir/bin || return 1
+}

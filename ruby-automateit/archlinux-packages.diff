@@ -1,0 +1,125 @@
+diff --new-file -ru lib/automateit/package_manager/pacman.rb lib/automateit/package_manager/pacman.rb
+--- lib/automateit/package_manager/pacman.rb	1970-01-01 01:00:00.000000000 +0100
++++ lib/automateit/package_manager/pacman.rb	2010-05-27 22:30:24.000000000 +0200
+@@ -0,0 +1,74 @@
++# == PackageManager::PACMAN
++#
++# The YUM driver for the PackageManager provides a way to manage software
++# packages on Red Hat-style systems using +yum+ and +rpm+.
++class AutomateIt::PackageManager::PACMAN < AutomateIt::PackageManager::BaseDriver
++  depends_on :programs => %w(pacman)
++
++  def suitability(method, *args) # :nodoc:
++    return available? ? 1 : 0
++  end
++
++  # See AutomateIt::PackageManager#installed?
++  def installed?(*packages)
++    return _installed_helper?(*packages) do |list, opts|
++      ### rpm -q --nosignature --nodigest --qf "%{NAME} # %{VERSION} # %{RELEASE}\n" httpd nomarch foo
++      #cmd = 'rpm -q --nosignature --nodigest --qf "%{NAME} # %{VERSION} # %{RELEASE}\n"'
++      cmd = 'pacman -Q'
++      list.each{|package| cmd << " "+package}
++      cmd << " > /dev/null" if opts[:quiet]
++      cmd << " 2>&1" # missing packages are listed on STDERR
++
++      log.debug(PEXEC+cmd)
++      data = `#{cmd}`
++      #matches = data.scan(/^(.+) # (.+) # .+$/)
++      matches = data.scan(/^(.+) .+$/)
++      available = matches.inject([]) do |sum, match|
++        package, status = match
++        sum << package
++        sum
++      end
++      available
++    end
++  end
++
++  # See AutomateIt::PackageManager#not_installed?
++  def not_installed?(*packages)
++    _not_installed_helper?(*packages)
++  end
++
++  # See AutomateIt::PackageManager#install
++  def install(*packages)
++    return _install_helper(*packages) do |list, opts|
++      # yum options:
++      # -y : yes to queries
++      # -d 0 : no debugging info
++      # -e 0 : show only fatal errors
++      # -C : don't download headers
++      #cmd = "yum -y -d 0 -e 0"
++      #cmd << " -C" if opts[:cache] == true
++      #cmd << " install "+list.join(" ")+" < /dev/null"
++      #cmd << " > /dev/null" if opts[:quiet]
++      #cmd << " 2>&1"
++      cmd = "pacman --needed --noconfirm --noprogressbar -S "+list.join(" ")
++      cmd << " > /dev/null" if opts[:quiet]
++      cmd << " 2>&1"
++
++      interpreter.sh(cmd)
++    end
++  end
++
++  # See AutomateIt::PackageManager#uninstall
++  def uninstall(*packages)
++    return _uninstall_helper(*packages) do |list, opts|
++      #cmd = "rpm --erase --quiet "+list.join(" ")+" < /dev/null"
++      #cmd << " > /dev/null" if opts[:quiet]
++      #cmd << " 2>&1"
++      cmd = "pacman --noconfirm --noprogressbar -R "+list.join(" ")+" < /dev/null"
++      cmd << " > /dev/null" if opts[:quiet]
++      cmd << " 2>&1"
++
++      interpreter.sh(cmd)
++    end
++  end
++end
+diff --new-file -ru lib/automateit/package_manager.rb lib/automateit/package_manager.rb
+--- lib/automateit/package_manager.rb	2010-05-27 22:31:19.894300137 +0200
++++ lib/automateit/package_manager.rb	2010-05-27 22:32:54.510954575 +0200
+@@ -255,3 +255,4 @@
+ require 'automateit/package_manager/pear'
+ require 'automateit/package_manager/pecl'
+ require 'automateit/package_manager/cpan'
++require 'automateit/package_manager/pacman'
+diff --new-file -ru lib/automateit/platform_manager/archlinux.rb lib/automateit/platform_manager/archlinux.rb
+--- lib/automateit/platform_manager/archlinux.rb	1970-01-01 01:00:00.000000000 +0100
++++ lib/automateit/platform_manager/archlinux.rb	2010-05-27 22:30:24.000000000 +0200
+@@ -0,0 +1,27 @@
++# == PlatformManager::Archlinux
++#
++# A PlatformManager driver for Debian Linux.
++class AutomateIt::PlatformManager::Archlinux < AutomateIt::PlatformManager::Uname
++  VERSION_FILE = "/etc/arch-release"
++
++  depends_on :files => [VERSION_FILE]
++
++  def suitability(method, *args) # :nodoc:
++    # Must be higher than PlatformManager::Struct
++    return available? ? 3 : 0
++  end
++
++  def _prepare
++    return if @struct[:distro]
++    @struct[:distro] = "archlinux"
++    #@struct[:release] = File.read(VERSION_FILE).strip
++    @struct[:release] = "rolling"
++    @struct
++  end
++  private :_prepare
++
++  def query(search)
++    _prepare
++    super(search)
++  end
++end
+diff --new-file -ru lib/automateit/platform_manager.rb lib/automateit/platform_manager.rb
+--- lib/automateit/platform_manager.rb	2010-05-27 22:31:19.897633291 +0200
++++ lib/automateit/platform_manager.rb	2010-05-27 22:33:11.490956360 +0200
+@@ -47,3 +47,4 @@
+ require 'automateit/platform_manager/freebsd'
+ require 'automateit/platform_manager/sunos'
+ require 'automateit/platform_manager/openbsd'
++require 'automateit/platform_manager/archlinux'
