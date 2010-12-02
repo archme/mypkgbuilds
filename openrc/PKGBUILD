@@ -31,7 +31,7 @@ build() {
         done
 
         # our hook functions
-        install -Dm755 $srcdir/openrc.functionsd $pkgdir/etc/rc.d/functions.d/openrc
+        install -Dm755 $startdir/openrc.functionsd $pkgdir/etc/rc.d/functions.d/openrc
 
         # rc.conf for opnerc
         mv $pkgdir/etc/rc.conf $pkgdir/etc/rc.conf.orc
