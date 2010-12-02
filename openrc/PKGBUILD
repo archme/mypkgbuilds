@@ -9,31 +9,31 @@ license='BSD-2'
 source=("http://mir0.gentoo-fr.org/distfiles/$pkgname-$pkgver.tar.bz2")
 
 build() {
-        cd "$srcdir/$pkgname-$pkgver"
+        cd $srcdir/$pkgname-$pkgver
         make || return 1
 
-        cd "$srcdir/$pkgname-$pkgver"
-        make DESTDIR="$pkgdir/" install
+        cd $srcdir/$pkgname-$pkgver
+        make DESTDIR=$pkgdir install
 
         # we cannot have anything turned on by default
-        rm -f "$pkgdir"/etc/runlevels/*/*
+        rm -f $pkgdir/etc/runlevels/*/*
 
         # we provide our own services
-		rm -f "$pkgdir"/etc/init.d/*
-		
+        rm -f $pkgdir/etc/init.d/*
+
         # our services
-        for i in ../init.d/*; do
-               install -Dm755 $i "$pkgdir"/etc/init.d/$i
+        for i in $srcdir/init.d/*; do
+               install -Dm755 $i $pkgdir/etc/init.d/$i
         done
 
-        for i in ../conf.d/*; do
-               install -Dm644 $i "$pkgdir"/etc/conf.d/$i
+        for i in $srcdir/conf.d/*; do
+               install -Dm644 $i $pkgdir/etc/conf.d/$i
         done
 
-		# our hook functions
-        install -D -m755 "$srcdir"/openrc.funcitiond "$pkgdir"/etc/rc.d/functions.d/openrc
-		
-		# rc.conf for opnerc
+        # our hook functions
+        install -Dm755 $srcdir/openrc.functionsd $pkgdir/etc/rc.d/functions.d/openrc
+
+        # rc.conf for opnerc
         mv $pkgdir/etc/rc.conf $pkgdir/etc/rc.conf.orc
 }
 
