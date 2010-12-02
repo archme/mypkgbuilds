@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=openrc
-pkgver=0.6.5
+pkgver=0.6.6
 pkgrel=1
 pkgdesc="OpenRC manages the services, startup and shutdown of a host"
 arch=('i686' 'x86_64')
@@ -32,4 +32,4 @@ build() {
         mv $pkgdir/etc/rc.conf $pkgdir/etc/rc.conf.orc
 }
 
-md5sums=("dc0c4d45959b0362974625c6ff77d853")
+md5sums=("4eedc42c1d5e3aa453bca7dea8eac680")
