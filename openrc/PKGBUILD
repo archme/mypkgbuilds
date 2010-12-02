@@ -18,17 +18,22 @@ build() {
         # we cannot have anything turned on by default
         rm -f "$pkgdir"/etc/runlevels/*/*
 
-        # we still use our ifup/ifdown based net config
-        #rm -f "$pkgdir"/etc/conf.d/network "$pkgdir"/etc/init.d/network
+        # we provide our own services
+		rm -f "$pkgdir"/etc/init.d/*
+		
+        # our services
+        for i in ../init.d/*; do
+               install -Dm755 $i "$pkgdir"/etc/init.d/$i
+        done
 
-        # we override some of the scripts
-        #for i in ../*.initd; do
-        #       j=${i##*/}
-        #       install -Dm755 $i "$pkgdir"/etc/init.d/${j%.initd}
-        #done
+        for i in ../conf.d/*; do
+               install -Dm644 $i "$pkgdir"/etc/conf.d/$i
+        done
 
-        #install -D -m644 "$srcdir"/modloop.confd "$pkgdir"/etc/conf.d/modloop
-        #install -Dm644 ../local.start "$pkgdir"/etc/conf.d/local.start
+		# our hook functions
+        install -D -m755 "$srcdir"/openrc.funcitiond "$pkgdir"/etc/rc.d/functions.d/openrc
+		
+		# rc.conf for opnerc
         mv $pkgdir/etc/rc.conf $pkgdir/etc/rc.conf.orc
 }
 
