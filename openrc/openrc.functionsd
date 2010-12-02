@@ -1,0 +1,11 @@
+openrc_default() {
+	/sbin/rc default || return 1
+	return 0
+}
+add_hook multi_end openrc_default
+
+openrc_shutdown() {
+	/sbin/rc shutdown || return 1
+	return 0
+}
+add_hook shutdown_start openrc_shutdown
