@@ -9,6 +9,7 @@ description="Configures network interfaces."
 depend()
 {
   #need localmount
+  after rsyslog
   provide net
   keyword -jail -prefix -vserver
 }

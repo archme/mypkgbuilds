@@ -6,6 +6,7 @@
 opts="reload"
 
 depend() {
+	before *
 	provide logger
 }
 

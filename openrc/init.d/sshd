@@ -8,8 +8,9 @@ required_files=/etc/ssh/sshd_config
 
 depend()
 {
-        use logger dns
-        #need net
+	after network
+    use logger dns
+	need net
 }
 
 start_pre()

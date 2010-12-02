@@ -6,6 +6,7 @@
 depend() {
         #use clock logger
         #need localmount
+        after sshd
         provide cron
 }
 
