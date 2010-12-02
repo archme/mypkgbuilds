@@ -1,0 +1,16 @@
+#!/sbin/runscript
+# Copyright (c) 2009 Roy Marples <roy@marples.name>
+# All rights reserved. Released under the 2-clause BSD license.
+
+command=/sbin/dhcpcd
+pidfile=/var/run/dhcpcd.pid
+command_args=$DHCPCD_ARGS
+name="DHCP Client Daemon"
+
+depend()
+{
+        provide net
+        use logger
+        after rsyslog
+        before sshd
+}
