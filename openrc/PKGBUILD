@@ -16,7 +16,7 @@ build() {
         make DESTDIR="$pkgdir/" install
 
         # we cannot have anything turned on by default
-        #rm -f "$pkgdir"/etc/runlevels/*/*
+        rm -f "$pkgdir"/etc/runlevels/*/*
 
         # we still use our ifup/ifdown based net config
         #rm -f "$pkgdir"/etc/conf.d/network "$pkgdir"/etc/init.d/network
