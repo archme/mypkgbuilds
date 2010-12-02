@@ -22,12 +22,12 @@ build() {
         rm -f $pkgdir/etc/init.d/*
 
         # our services
-        for i in $srcdir/init.d/*; do
-               install -Dm755 $i $pkgdir/etc/init.d/$i
+        for i in $startdir/init.d/*; do
+               install -Dm755 $i $pkgdir/etc/init.d/$(basename $i)
         done
 
-        for i in $srcdir/conf.d/*; do
-               install -Dm644 $i $pkgdir/etc/conf.d/$i
+        for i in $startdir/conf.d/*; do
+               install -Dm644 $i $pkgdir/etc/conf.d/$(basename $i)
         done
 
         # our hook functions
