@@ -20,6 +20,7 @@ build() {
 
         # we provide our own services
         rm -f $pkgdir/etc/init.d/*
+        ln -s /libexec/rc/sh/functions.sh $pkgdir/etc/init.d/functions.sh
 
         # our services
         for i in $startdir/init.d/*; do
