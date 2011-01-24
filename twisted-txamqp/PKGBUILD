@@ -1,0 +1,24 @@
+# Maintainer: Archme <archm.mail@gmail.com>
+
+pkgname=twisted-txamqp
+_pkgname=python-txamqp
+pkgver=0.3
+pkgrel=1
+pkgdesc="Python2 library for communicating with AMQP peers and brokers using Twisted"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('python2' 'twisted')
+makedepends=('python2-distribute')
+options=('!libtool')
+source=(http://launchpad.net/txamqp/trunk/${pkgver}/+download/${_pkgname}_${pkgver}.orig.tar.gz)
+url="https://launchpad.net/txamqp"
+md5sums=('984aa9c7195549c12a0aaae92b6fe503')
+
+build() {
+  return 0
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python2 setup.py install --prefix=/usr --root=${pkgdir} --optimize=1
+}
