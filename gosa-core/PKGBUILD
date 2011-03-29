@@ -1,0 +1,26 @@
+# Contributor: archme
+pkgname=gosa-core
+pkgver=2.7
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="https://oss.gonicus.de/"
+depends=('apache' 'php')
+makedepends=('php')
+options=(!libtool)
+source=(http://oss.gonicus.de/pub/gosa/$pkgname-$pkgver.tar.bz2)
+
+build() {
+  mkdir -p "${pkgdir}/usr/share/gosa"
+  mkdir -p "${pkgdir}/etc/gosa"
+  mkdir -p "${pkgdir}/var/spool/gosa"
+  chown -R http.http "${pkgdir}/var/spool/gosa"
+
+  cp -ar ${srcdir}/${pkgname}-${pkgver}/* ${pkgdir}/usr/share/gosa
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  #./configure --prefix=/usr || return 1
+  #make || return 1
+  #make DESTDIR=${pkgdir} install || return 1
+}
+md5sums=('6bc9e92754e103cfc52700efdf3dcad5')
