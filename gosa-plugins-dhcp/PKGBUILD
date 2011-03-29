@@ -1,0 +1,31 @@
+# Contributor: archme
+pkgname=gosa-plugins-dhcp
+pkgver=2.7
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="https://oss.gonicus.de/"
+depends=('gosa-core' 'gosa-plugins-systems')
+makedepends=('php')
+options=(!libtool)
+source=(http://oss.gonicus.de/pub/gosa/$pkgname-$pkgver.tar.bz2)
+
+build() {
+  #mkdir -p "${pkgdir}/usr/share/gosa"
+  #mkdir -p "${pkgdir}/etc/gosa"
+  mkdir -p "${pkgdir}/usr/share/gosa/contrib/openldap"
+  mkdir -p "${pkgdir}/usr/share/gosa/plugins"
+  mkdir -p "${pkgdir}/usr/share/gosa/locale/plugins/dhcp"
+  #chown -R http.http "${pkgdir}/var/spool/gosa"
+
+  cp -a ${srcdir}/${pkgname}-${pkgver}/contrib/dhcp.schema ${pkgdir}/usr/share/gosa/contrib/openldap
+  cp -ar ${srcdir}/${pkgname}-${pkgver}/admin ${pkgdir}/usr/share/gosa/plugins
+  cp -ar ${srcdir}/${pkgname}-${pkgver}/locale/* ${pkgdir}/usr/share/gosa/locale/plugins/dhcp
+  chown -R http.http "${pkgdir}/usr/share/gosa"
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  #./configure --prefix=/usr || return 1
+  #make || return 1
+  #make DESTDIR=${pkgdir} install || return 1
+}
+md5sums=('55948936009dda6b001724f8e6370626')
