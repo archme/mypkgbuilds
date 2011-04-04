@@ -5,8 +5,10 @@ pkgbase=dhcp
 pkgname='dhcp-ldap'
 
 # separate patch levels with a period to maintain proper versioning.
-pkgver=4.2.0.2
-_pkgver=4.2.0-P2
+#pkgver=4.2.0.2
+#_pkgver=4.2.0-P2
+pkgver=4.2.1
+_pkgver=4.2.1
 
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -16,7 +18,8 @@ source=(http://ftp.isc.org/isc/${pkgbase}/${pkgbase}-${_pkgver}.tar.gz
         dhcpd dhcp.conf.d
         dhcp-4.1.1-missing-ipv6-not-fatal.patch
         dhclient-script-pathFixes.patch)
-md5sums=('a98f4ce3ca651e7e28a5a1ae6398689e'
+#md5sums=('a98f4ce3ca651e7e28a5a1ae6398689e'
+md5sums=('bddce8a23551f009fd0ac840afc89780'
          'df22cffa7d7415ece7bb025b7bf774dd'
          '49da3192e5c885e3c7d02f447c2dea5e'
          'fd64aeb4f399dcc41ea43089a3811094'

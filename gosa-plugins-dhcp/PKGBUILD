@@ -6,7 +6,7 @@ pkgdesc="TODO desc"
 arch=('i686' 'x86_64')
 license=('LGPL')
 url="https://oss.gonicus.de/"
-depends=('gosa-core' 'gosa-plugins-systems')
+depends=('gosa-core' 'gosa-plugins-systems' 'dhcp-ldap>=4.2.1')
 makedepends=('php')
 options=(!libtool)
 source=(http://oss.gonicus.de/pub/gosa/$pkgname-$pkgver.tar.bz2)
