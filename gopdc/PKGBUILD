@@ -1,0 +1,39 @@
+# Contributor: archme
+pkgname=gopdc
+pkgver=174
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="https://oss.gonicus.de/"
+depends=('php' 'samba')
+makedepends=('subversion')
+options=(!libtool)
+source=()
+md5sums=()
+
+_svntrunk=https://oss.gonicus.de/repositories/${pkgname}/trunk/
+_svnmod=${pkgname}
+
+build() {
+  svn co $_svntrunk $_svnmod
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  #mkdir -p "${pkgdir}/usr/share/gosa"
+  #mkdir -p "${pkgdir}/etc/gosa"
+  #mkdir -p "${pkgdir}/var/spool/gosa"
+  #chown -R http.http "${pkgdir}/var/spool/gosa"
+
+  #cp -ar ${srcdir}/${pkgname}-${pkgver}/* ${pkgdir}/usr/share/gosa
+  cd "${srcdir}/${pkgname}"
+  #./configure --prefix=/usr || return 1
+  #make || return 1
+  install -D -m644 ./scripts/functions ${pkgdir}/usr/share/gopdc/functions
+  install -D -m755 ./scripts/gopdc ${pkgdir}/usr/share/gopdc/gopdc
+  install -D -m755 ./scripts/populate ${pkgdir}/usr/share/gopdc/populate
+  #install -D -m755 ./scripts/gopdc_helper ${pkgdir}/usr/share/gopdc/gopdc_helper
+  install -D -m644 ./scripts/config.inc ${pkgdir}/usr/share/gopdc/config.inc
+  install -D -m744 ./config/gopdc.xml ${pkgdir}/etc/gopdc.xml
+  #make DESTDIR=${pkgdir} install || return 1
+}
