@@ -17,13 +17,15 @@ url="https://www.isc.org/software/dhcp"
 source=(http://ftp.isc.org/isc/${pkgbase}/${pkgbase}-${_pkgver}.tar.gz
         dhcpd dhcp.conf.d
         dhcp-4.1.1-missing-ipv6-not-fatal.patch
-        dhclient-script-pathFixes.patch)
-#md5sums=('a98f4ce3ca651e7e28a5a1ae6398689e'
+        dhclient-script-pathFixes.patch
+        dhcpd.conf)
+
 md5sums=('bddce8a23551f009fd0ac840afc89780'
          'df22cffa7d7415ece7bb025b7bf774dd'
          '49da3192e5c885e3c7d02f447c2dea5e'
          'fd64aeb4f399dcc41ea43089a3811094'
-         'ddcc5cd576ec631ade6c4da21952b50b')
+         'ddcc5cd576ec631ade6c4da21952b50b'
+         '7f7514387cfa3808200417321c7632e0')
 
 build() {
   cd ${srcdir}/${pkgbase}-${_pkgver}
@@ -49,17 +51,18 @@ package_dhcp-ldap(){
   depends=('openssl>=0.9.8a')
   backup=('etc/dhcpd.conf' 'etc/conf.d/dhcp')
   install=dhcp.install
-  
+
   cd ${srcdir}/${pkgbase}-${_pkgver}
   make DESTDIR=${pkgdir} install
 
   install -D -m755 ${srcdir}/dhcpd ${pkgdir}/etc/rc.d/dhcpd
   install -D -m644 ${srcdir}/dhcp.conf.d ${pkgdir}/etc/conf.d/${pkgbase}
+  install -D -m640 ${srcdir}/dhcpd.conf ${pkgdir}/etc/dhcpd.conf
   mkdir -p ${pkgdir}/var/state/dhcp
 
   # Remove dhclient
   make -C client DESTDIR=${pkgdir} uninstall
-  
+
   # install license
   install -m644 -D LICENSE ${pkgdir}/usr/share/licenses/dhcp/LICENSE
 }
