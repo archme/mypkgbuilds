@@ -1,6 +1,7 @@
 # Contributor: archme
-pkgname=fusiondirectory-plugins-systems
 pkgcore=fusiondirectory-plugins
+pluginname=systems
+pkgname=${pkgcore}-${pluginname}
 pkgver=1.0
 pkgrel=1
 pkgdesc="TODO desc"
@@ -10,14 +11,18 @@ url="http://www.fusiondirectory.org"
 depends=('fusiondirectory')
 makedepends=()
 options=(!libtool)
+install=${pkgname}.install
 source=(http://download.fusiondirectory.org/sources/1.0/${pkgcore}-${pkgver}.tar.gz)
 
 build() {
-  mkdir -p "${pkgdir}/usr/share/gosa/plugins"
-  mkdir -p "${pkgdir}/usr/share/gosa/locale/plugins/systems"
-  cp -ar ${srcdir}/${pkgname}-${pkgver}/admin ${pkgdir}/usr/share/gosa/plugins
-  cp -ar ${srcdir}/${pkgname}-${pkgver}/locale/* ${pkgdir}/usr/share/gosa/locale/plugins/systems
-  chown -R http.http "${pkgdir}/usr/share/gosa"
+  cd ${srcdir}/${pkgcore}-${pkgver}
+
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/plugins"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}"
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/admin ${pkgdir}/opt/fusiondirectory/plugins
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/locale/* ${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/html/images ${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}
 }
 
-md5sums=('634fd99c8d91fa4aedf8309cd935947d')
+md5sums=('6d3745ea3a326a09aac4c8a6d1315c16')
