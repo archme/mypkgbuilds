@@ -9,6 +9,7 @@ url="https://oss.gonicus.de/"
 depends=('bind')
 makedepends=('subversion')
 options=(!libtool)
+install=${pkgname}.install
 source=()
 md5sums=()
 
@@ -20,17 +21,10 @@ build() {
   msg "SVN checkout done or server timeout"
   msg "Starting make..."
 
-  #mkdir -p "${pkgdir}/usr/share/gosa"
-  #mkdir -p "${pkgdir}/etc/gosa"
-  #mkdir -p "${pkgdir}/var/spool/gosa"
-  #chown -R http.http "${pkgdir}/var/spool/gosa"
-
-  #cp -ar ${srcdir}/${pkgname}-${pkgver}/* ${pkgdir}/usr/share/gosa
   cd "${srcdir}/${pkgname}"
-  #./configure --prefix=/usr || return 1
+
   make || return 1
   install -D -m755 ./ldap2bind ${pkgdir}/usr/sbin/ldap2bind
   install -D -m755 ./ldap2zone ${pkgdir}/usr/sbin/ldap2zone
   install -D -m644 ./debian/default ${pkgdir}/etc/default/ldap2zone
-  #make DESTDIR=${pkgdir} install || return 1
 }

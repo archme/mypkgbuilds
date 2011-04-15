@@ -1,0 +1,6 @@
+post_install() {
+  echo
+  echo "-------------------------------------------------------------------------"
+  echo "Include /etc/openldap/schema/fusiondirectory/dnszone.schema in slapd.conf"
+  echo "-------------------------------------------------------------------------"
+}

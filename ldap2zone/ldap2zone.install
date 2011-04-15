@@ -1,0 +1,9 @@
+post_install() {
+  touch /var/named/named.conf.ldap2zone
+  chmod 644 /var/named/named.conf.ldap2zone
+
+  echo
+  echo "-------------------------------------------------------------------------"
+  echo "Include /var/named/named.conf.ldap2zone in named.conf"
+  echo "-------------------------------------------------------------------------"
+}
