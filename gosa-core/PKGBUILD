@@ -1,6 +1,6 @@
 # Contributor: archme
 pkgname=gosa-core
-pkgver=2.7
+pkgver=2.7.1
 pkgrel=1
 pkgdesc="TODO desc"
 arch=('i686' 'x86_64')

@@ -1,0 +1,39 @@
+# Contributor: archme
+pkgname=fusiondirectory
+pkgver=1.0
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="http://www.fusiondirectory.com/"
+depends=('apache' 'php-apache' 'php' 'php-ldap' 'perl-crypt-smbhash' 'imagemagick')
+makedepends=('php')
+options=(!libtool)
+install=${pkgname}.install
+source=("http://download.${pkgname}.org/sources/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+	"${pkgname}-apache.conf")
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+
+  install -d -m755 "${pkgdir}/opt/${pkgname}"
+  install -d -m755 "${pkgdir}/etc/${pkgname}"
+  install -d -m770 -oroot -ghttp "${pkgdir}/var/spool/${pkgname}"
+
+  install -D update-${pkgname} ${pkgdir}/opt/${pkgname}
+  install -D bin/${pkgname}-encrypt-passwords ${pkgdir}/opt/${pkgname}
+  cp -ar html ${pkgdir}/opt/${pkgname}
+  cp -ar ihtml ${pkgdir}/opt/${pkgname}
+  cp -ar include ${pkgdir}/opt/${pkgname}
+  cp -ar locale ${pkgdir}/opt/${pkgname}
+  cp -ar plugins ${pkgdir}/opt/${pkgname}
+  cp -ar setup ${pkgdir}/opt/${pkgname}
+  cp -ar contrib ${pkgdir}/opt/${pkgname}
+  install -D -m644 ${srcdir}/${pkgname}-apache.conf ${pkgdir}/etc/httpd/conf/extra/httpd-${pkgname}.conf
+  install -D -m644 contrib/shells ${pkgdir}/etc/${pkgname}
+  install -D -m644 contrib/encodings ${pkgdir}/etc/${pkgname}
+  install -D -m644 contrib/openldap/slapd.conf ${pkgdir}/usr/share/doc/${pkgname}/slapd.conf-example
+  install -D -m644 contrib/${pkgname}.conf ${pkgdir}/usr/share/doc/${pkgname}
+}
+md5sums=('7d6ded647cd3d6fd304f6494552d27ac'
+	 '4719d80e1a694391a7ba7f2edcfd0985')

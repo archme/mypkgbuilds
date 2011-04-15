@@ -1,0 +1,23 @@
+# Contributor: archme
+pkgname=fusiondirectory-plugins-systems
+pkgcore=fusiondirectory-plugins
+pkgver=1.0
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="http://www.fusiondirectory.org"
+depends=('fusiondirectory')
+makedepends=()
+options=(!libtool)
+source=(http://download.fusiondirectory.org/sources/1.0/${pkgcore}-${pkgver}.tar.gz)
+
+build() {
+  mkdir -p "${pkgdir}/usr/share/gosa/plugins"
+  mkdir -p "${pkgdir}/usr/share/gosa/locale/plugins/systems"
+  cp -ar ${srcdir}/${pkgname}-${pkgver}/admin ${pkgdir}/usr/share/gosa/plugins
+  cp -ar ${srcdir}/${pkgname}-${pkgver}/locale/* ${pkgdir}/usr/share/gosa/locale/plugins/systems
+  chown -R http.http "${pkgdir}/usr/share/gosa"
+}
+
+md5sums=('634fd99c8d91fa4aedf8309cd935947d')

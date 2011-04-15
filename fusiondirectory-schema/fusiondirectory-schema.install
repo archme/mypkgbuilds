@@ -1,0 +1,7 @@
+post_install() {
+  echo
+  echo "-------------------------------------------------------------------------"
+  echo "1. Include all files from /etc/openldap/schema/fusiondirectory slapd.conf"
+  echo "2. Configure suffix, rootdn and rootpw in slapd.conf"
+  echo "-------------------------------------------------------------------------"
+}
