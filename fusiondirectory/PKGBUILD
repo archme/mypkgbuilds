@@ -8,6 +8,7 @@ license=('LGPL')
 url="http://www.fusiondirectory.com/"
 depends=('apache' 'php-apache' 'php' 'php-ldap' 'perl-crypt-smbhash' 'imagemagick')
 makedepends=('php')
+optdepends=('fusiondirectory-schema')
 options=(!libtool)
 install=${pkgname}.install
 source=("http://download.${pkgname}.org/sources/${pkgver}/${pkgname}-${pkgver}.tar.gz"
