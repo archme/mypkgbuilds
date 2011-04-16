@@ -2,6 +2,9 @@
 post_install() {
   [ -f var/state/dhcp/dhcpd.leases ] || : >var/state/dhcp/dhcpd.leases
   #echo "If dhcpd doesn't start, ensure the ipv6 kernel module is loaded."
+  echo "---------------------------------------------------------------------"
+  echo "Configure ldap-server, ldap-base-dn, ldap-password, ... in dhcpd.conf"
+  echo "---------------------------------------------------------------------"
 }
 
 # arg 1:  the new package version

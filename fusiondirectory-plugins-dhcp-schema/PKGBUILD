@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 license=('LGPL')
 url="http://www.fusiondirectory.org"
 depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
-optdepends=('dhcp-ldap>=4.2.1')
+optdepends=('dhcp-ldap')
 makedepends=()
 options=(!libtool)
 install=${pkgname}.install

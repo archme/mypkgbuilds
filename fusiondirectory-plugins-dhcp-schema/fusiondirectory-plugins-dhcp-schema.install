@@ -1,6 +1,7 @@
 post_install() {
   echo
   echo "-------------------------------------------------------------------------"
-  echo "Include /etc/openldap/schema/fusiondirectory/dhcp.schema in slapd.conf"
+  echo "1. Include required schema files in slapd.conf:"
+  echo "include /etc/openldap/schema/fusiondirectory/dhcp.schema"
   echo "-------------------------------------------------------------------------"
 }
