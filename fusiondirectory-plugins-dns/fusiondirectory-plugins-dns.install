@@ -8,6 +8,7 @@ post_install() {
   ./update-fusiondirectory
   echo
   echo "--------------------------------------------------------------------------"
-  echo "TODO msg"
+  echo "1. You will need dnszone.schema in your ldap"
+  echo "2. You will need bind and ldap2zone"
   echo "--------------------------------------------------------------------------"
 }
