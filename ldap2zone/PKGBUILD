@@ -1,0 +1,30 @@
+# Contributor: archme
+pkgname=ldap2zone
+pkgver=846
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="https://oss.gonicus.de/"
+depends=('bind')
+makedepends=('subversion')
+options=(!libtool)
+install=${pkgname}.install
+source=()
+md5sums=()
+
+_svntrunk=https://oss.gonicus.de/repositories/goto/trunk/${pkgname}
+_svnmod=${pkgname}
+
+build() {
+  svn co $_svntrunk $_svnmod
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  cd "${srcdir}/${pkgname}"
+
+  make || return 1
+  install -D -m755 ./ldap2bind ${pkgdir}/usr/sbin/ldap2bind
+  install -D -m755 ./ldap2zone ${pkgdir}/usr/sbin/ldap2zone
+  install -D -m644 ./debian/default ${pkgdir}/etc/default/ldap2zone
+}

@@ -1,0 +1,30 @@
+# Contributor: archme
+pkgcore=fusiondirectory-plugins
+pluginname=samba
+pkgname=${pkgcore}-${pluginname}
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="TODO desc"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="http://www.fusiondirectory.org"
+depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
+optdepends=('samba' 'smbldap-tools')
+makedepends=()
+options=(!libtool)
+install=${pkgname}.install
+source=(http://download.fusiondirectory.org/sources/1.0/${pkgcore}-${pkgver}.tar.gz)
+
+build() {
+  cd ${srcdir}/${pkgcore}-${pkgver}
+
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/plugins"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}"
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/admin ${pkgdir}/opt/fusiondirectory/plugins
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/personal ${pkgdir}/opt/fusiondirectory/plugins
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/locale/* ${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}
+  cp -ar ${srcdir}/${pkgcore}-${pkgver}/${pluginname}/html/images ${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}
+}
+
+md5sums=('6d3745ea3a326a09aac4c8a6d1315c16')
