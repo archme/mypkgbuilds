@@ -1,0 +1,122 @@
+# Contributor: archme
+
+pkgbase=fusiondirectory-plugins
+pkgname=('fusiondirectory-plugins-addressbook'
+	 'fusiondirectory-plugins-dhcp'
+	 'fusiondirectory-plugins-dhcp-schema'
+	 'fusiondirectory-plugins-dns'
+	 'fusiondirectory-plugins-dns-schema'
+	 'fusiondirectory-plugins-samba'
+	 'fusiondirectory-plugins-ssh'
+	 'fusiondirectory-plugins-ssh-schema'
+	 'fusiondirectory-plugins-systems')
+
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Plugins for fusiondirectory"
+arch=('i686' 'x86_64')
+license=('LGPL')
+url="http://www.fusiondirectory.org"
+depends=('fusiondirectory')
+optdepends=()
+makedepends=()
+options=(!libtool)
+source=(http://download.fusiondirectory.org/sources/1.0/${pkgbase}-${pkgver}.tar.gz)
+md5sums=('6d3745ea3a326a09aac4c8a6d1315c16')
+
+
+build() {
+  echo "Start packaging..."
+}
+
+package_fusiondirectory-plugins-addressbook() {
+  pkgdesc="Addressbook Plugin"
+  depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
+  pluginname=addressbook
+  install=${pkgbase}-${pluginname}.install
+
+  cd ${srcdir}/${pkgbase}-${pkgver}
+
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/plugins"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}"
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/addons ${pkgdir}/opt/fusiondirectory/plugins
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/locale/* ${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/html/getvcard.php ${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/html/images ${pkgdir}/opt/fusiondirectory/html/plugins/${pluginname}
+}
+
+package_fusiondirectory-plugins-dhcp() {
+  pkgdesc="DHCP Plugin"
+  depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
+  optdepends=('dhcp-ldap' 'fusiondirectory-plugins-dhcp-schema')
+  pluginname=dhcp
+  install=${pkgbase}-${pluginname}.install
+
+  echo "Packaging ${pkgbase}-${pluginname}"
+
+  cd ${srcdir}/${pkgbase}-${pkgver}
+
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/plugins"
+  install -d -m755 "${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}"
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/admin ${pkgdir}/opt/fusiondirectory/plugins
+  cp -ar ${srcdir}/${pkgbase}-${pkgver}/${pluginname}/locale/* ${pkgdir}/opt/fusiondirectory/locale/plugins/${pluginname}
+}
+
+package_fusiondirectory-plugins-dhcp-schema() {
+  pkgdesc="Schemas for DHCP Plugin"
+  depends=('fusiondirectory-schema')
+  optdepends=('dhcp-ldap')
+  schemaname=dhcp-schema
+  install=${pkgbase}-${schemaname}.install
+
+  echo "Packaging ${pkgbase}-${schemaname}"
+
+  cd ${srcdir}/${pkgbase}-${pkgver}
+
+  install -d -m755 "${pkgdir}/etc/openldap/schema/fusiondirectory"
+  install -D -m644 ${pluginname}/contrib/dhcp.schema "${pkgdir}/etc/openldap/schema/fusiondirectory"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
