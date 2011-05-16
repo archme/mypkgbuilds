@@ -1,29 +1,36 @@
-# Contributor: archme
-pkgname=ldap2zone
+# Maintainer: archme
+
+pkgbase=ldap2zone
+pkgname=ldap2zone-svn
 pkgver=846
 pkgrel=1
-pkgdesc="TODO desc"
+pkgdesc="Tool to export gosa dns ldap-entries to bind zone-files"
 arch=('i686' 'x86_64')
 license=('LGPL')
 url="https://oss.gonicus.de/"
 depends=('bind')
 makedepends=('subversion')
-options=(!libtool)
-install=${pkgname}.install
+options=()
+install=${pkgbase}.install
 source=()
 md5sums=()
 
-_svntrunk=https://oss.gonicus.de/repositories/goto/trunk/${pkgname}
-_svnmod=${pkgname}
+_svntrunk=https://oss.gonicus.de/repositories/goto/trunk/${pkgbase}
+_svnmod=${pkgbase}
 
 build() {
   svn co $_svntrunk $_svnmod
   msg "SVN checkout done or server timeout"
   msg "Starting make..."
 
-  cd "${srcdir}/${pkgname}"
+  cd "${srcdir}/${pkgbase}"
 
   make || return 1
+}
+
+package_ldap2zone-svn() {
+  cd "${srcdir}/${pkgbase}"
+
   install -D -m755 ./ldap2bind ${pkgdir}/usr/sbin/ldap2bind
   install -D -m755 ./ldap2zone ${pkgdir}/usr/sbin/ldap2zone
   install -D -m644 ./debian/default ${pkgdir}/etc/default/ldap2zone

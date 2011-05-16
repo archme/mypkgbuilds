@@ -1,20 +1,21 @@
-# Contributor: archme
+# Maintainer: archme
 
-pkgbase=fusiondirectory-plugins
-pkgname=('fusiondirectory-plugins-addressbook'
-	 'fusiondirectory-plugins-dhcp'
-	 'fusiondirectory-plugins-dhcp-schema'
-	 'fusiondirectory-plugins-dns'
-	 'fusiondirectory-plugins-dns-schema'
-	 'fusiondirectory-plugins-samba'
-	 'fusiondirectory-plugins-ssh'
-	 'fusiondirectory-plugins-ssh-schema'
-	 'fusiondirectory-plugins-systems')
+pkgbase='fusiondirectory-plugins'
+pkgname='fusiondirectory-plugins'
+true && pkgname=('fusiondirectory-plugins-addressbook'
+	 	 'fusiondirectory-plugins-dhcp'
+	 	 'fusiondirectory-plugins-dhcp-schema'
+	 	 'fusiondirectory-plugins-dns'
+	 	 'fusiondirectory-plugins-dns-schema'
+	 	 'fusiondirectory-plugins-samba'
+	 	 'fusiondirectory-plugins-ssh'
+	 	 'fusiondirectory-plugins-ssh-schema'
+		 'fusiondirectory-plugins-systems')
 
 pkgver=1.0.1
 pkgrel=1
-pkgdesc="Plugins for fusiondirectory"
-arch=('i686' 'x86_64')
+pkgdesc="Plugins for Fusiondirectory Infrastructure Manager"
+arch=('any')
 license=('LGPL')
 url="http://www.fusiondirectory.org"
 depends=()
@@ -30,7 +31,7 @@ build() {
 }
 
 package_fusiondirectory-plugins-systems() {
-  pkgdesc="Systems Plugin"
+  pkgdesc="Systems Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory')
 
   _pluginname='systems'
@@ -49,7 +50,7 @@ package_fusiondirectory-plugins-systems() {
 }
 
 package_fusiondirectory-plugins-addressbook() {
-  pkgdesc="Addressbook Plugin"
+  pkgdesc="Addressbook Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
 
   _pluginname='addressbook'
@@ -69,7 +70,7 @@ package_fusiondirectory-plugins-addressbook() {
 }
 
 package_fusiondirectory-plugins-dhcp() {
-  pkgdesc="DHCP Plugin"
+  pkgdesc="DHCP Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
   optdepends=('dhcp-ldap' 'fusiondirectory-plugins-dhcp-schema')
 
@@ -87,7 +88,7 @@ package_fusiondirectory-plugins-dhcp() {
 }
 
 package_fusiondirectory-plugins-dhcp-schema() {
-  pkgdesc="Schemas for DHCP Plugin"
+  pkgdesc="Schemas for DHCP Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory-schema')
   optdepends=('dhcp-ldap')
 
@@ -103,7 +104,7 @@ package_fusiondirectory-plugins-dhcp-schema() {
 }
 
 package_fusiondirectory-plugins-dns() {
-  pkgdesc="DNS Plugin"
+  pkgdesc="DNS Plugin Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
   optdepends=('bind' 'ldap2zone' 'fusiondirectory-plugins-dns-schema')
 
@@ -121,7 +122,7 @@ package_fusiondirectory-plugins-dns() {
 }
 
 package_fusiondirectory-plugins-dns-schema() {
-  pkgdesc="Schemas for DNS Plugin"
+  pkgdesc="Schemas for DNS Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory-schema')
   optdepends=('bind' 'ldap2zone')
 
@@ -137,7 +138,7 @@ package_fusiondirectory-plugins-dns-schema() {
 }
 
 package_fusiondirectory-plugins-ssh() {
-  pkgdesc="SSH Plugin"
+  pkgdesc="SSH Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
   optdepends=()
 
@@ -155,7 +156,7 @@ package_fusiondirectory-plugins-ssh() {
 }
 
 package_fusiondirectory-plugins-ssh-schema() {
-  pkgdesc="Schemas for SSH Plugin"
+  pkgdesc="Schemas for SSH Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory-schema')
   optdepends=()
 
@@ -171,7 +172,7 @@ package_fusiondirectory-plugins-ssh-schema() {
 }
 
 package_fusiondirectory-plugins-samba() {
-  pkgdesc="Samba Plugin"
+  pkgdesc="Samba Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
   optdepends=('samba' 'smbldap-tools')
 

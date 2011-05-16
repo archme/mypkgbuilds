@@ -1,12 +1,13 @@
-# Contributor: archme
+# Maintainer: archme
 
 pkgbase='fusiondirectory'
-pkgname=('fusiondirectory'
-	 'fusiondirectory-schema')
+pkgname='fusiondirectory'
+true && pkgname=('fusiondirectory'
+	 	 'fusiondirectory-schema')
 pkgver=1.0.1
 pkgrel=1
-pkgdesc="Fusiondirectory LDAP Manager"
-arch=('i686' 'x86_64')
+pkgdesc="An LDAP based Infrastructure Manager"
+arch=('any')
 license=('LGPL')
 url="http://www.fusiondirectory.com/"
 depends=()
@@ -24,7 +25,7 @@ build() {
 }
 
 package_fusiondirectory() {
-  pkgdesc="Fusiondirectory LDAP Manager"
+  pkgdesc="An LDAP based Infrastructure Manager"
   depends=('apache' 'php-apache' 'php' 'php-ldap' 'php-curl' 'perl-crypt-smbhash' 'imagemagick')
   makedepends=('php')
   optdepends=('fusiondirectory-schema')
@@ -53,7 +54,7 @@ package_fusiondirectory() {
 }
 
 package_fusiondirectory-schema() {
-  pkgdesc="Schema files for Fusiondirectory LDAP Manager"
+  pkgdesc="Schema files for Fusiondirectory Infrastructure Manager"
   depends=('openldap')
   makedepends=()
   optdepends=()
