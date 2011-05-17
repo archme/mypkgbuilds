@@ -140,7 +140,7 @@ package_fusiondirectory-plugins-dns-schema() {
 package_fusiondirectory-plugins-ssh() {
   pkgdesc="SSH Plugin for Fusiondirectory Infrastructure Manager"
   depends=('fusiondirectory' 'fusiondirectory-plugins-systems')
-  optdepends=()
+  optdepends=('openssh-lpk')
 
   _pluginname='ssh'
   install=${pkgbase}-ssh.install
